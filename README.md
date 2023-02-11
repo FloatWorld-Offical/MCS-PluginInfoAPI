@@ -25,7 +25,7 @@
 http(s)://地址/api/插件名/查询模块/查询参数
 
 ### API文档
-暂未编写
+[点击查看](https://www.apifox.cn/apidoc/shared-e30cace3-09f7-48dc-9f67-6c6d9cbb0edc)
 
 ### 使用教程
 [必要部分]  
