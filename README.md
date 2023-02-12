@@ -12,13 +12,9 @@
 - mysql-connector-python
 - json（标准库）
 
-### 适配数据库类型
-- MySQL
-- SQLite(计划中)
-- MongoDB(计划中)
-
-### 适配Minecraft插件列表
-- PlayerPoints
+### 适配插件/功能 及 数据库类型
+- 插件授权管理 / MySQL (API文档暂未更新)
+- PlayerPoints / MySQL
 
 ### 地址结构说明
 本API的默认访问地址结构如下

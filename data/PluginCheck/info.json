@@ -1,0 +1,12 @@
+{
+  "database": {
+    "host": "********",
+    "database": "********",
+    "user": "********",
+    "password": "********"
+  },
+  "plugin_index": {
+    "testplugin1": 2,
+    "testplugin2": 5
+  }
+}

@@ -17,5 +17,6 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('api/playerpoints/', include('PlayerPoints.urls')),
+    #path('api/playerpoints/', include('PlayerPoints.urls')),
+    #path('api/plugincheck/', include('PluginCheck.urls')),
 ]
