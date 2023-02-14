@@ -1,3 +1,5 @@
+import traceback
+
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from mysql import connector
@@ -95,9 +97,9 @@ def bind(request, qq, plugin, ip):
     cnx = connector.connect(host=info["database"]["host"], database=info["database"]["database"],
                             user=info["database"]["user"], password=info["database"]["password"])
     try:
-        sql2_1 = "UPDATE keydays SET {}_ip = '{}' WHERE qq = {};".format(plugin, ip, qq)
+        sql1 = "UPDATE keydays SET {}_ip = '{}' WHERE qq = '{}';".format(plugin, ip, qq)
         cur = cnx.cursor()
-        cur.execute(sql2_1)
+        cur.execute(sql1)
         cnx.commit()
         cur.close()
         cnx.close()
@@ -106,3 +108,23 @@ def bind(request, qq, plugin, ip):
     except:
         return HttpResponse(
             json.dumps({"code": 1, "message": "Error Parameter"}))
+
+def search(request, qq):
+    with open("./data/PluginCheck/info.json", "r+", encoding="utf-8") as f:
+        info = json.loads(f.read())
+    cnx = connector.connect(host=info["database"]["host"], database=info["database"]["database"],
+                            user=info["database"]["user"], password=info["database"]["password"])
+    try:
+        sql1 = "SELECT * FROM keydays WHERE qq = '{}'".format(qq)
+        result = database.mysql_run(cnx, sql1)[0]
+        final = {"code": 0, "message": "Success", "data": {"QQ": qq, "Key": result[0], "Plugin": {}}}
+        for i in info["plugin"]:
+            endtime = int(result[info["plugin_index"][i]+1])
+            if endtime >= datetime.datetime.today().timestamp():
+                final["data"]["Plugin"][i] = {"state": "可用", "time": datetime.datetime.utcfromtimestamp(endtime).strftime("%Y-%m-%d"), "IP": result[info["plugin_index"][i]+2]}
+            else:
+                final["data"]["Plugin"][i] = {"state": "已到期/未购买"}
+        return HttpResponse(json.dumps(final))
+    except:
+        traceback.print_exc()
+        pass

@@ -5,6 +5,7 @@
     "user": "********",
     "password": "********"
   },
+  "plugin": ["testplugin1", "testplugin2"],
   "plugin_index": {
     "testplugin1": 2,
     "testplugin2": 5
